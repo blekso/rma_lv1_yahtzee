@@ -1,6 +1,7 @@
 import rollers.Roller
 import strategies.IStrategy
 import strategies.LargeStraightStrategy
+import strategies.PokerStrategy
 import strategies.YahtzeeStrategy
 import kotlin.system.exitProcess
 
@@ -11,6 +12,7 @@ class Yahtzee {
     private var roller: Roller = Roller()
     private var yahtzeeStrategy: IStrategy = YahtzeeStrategy()
     private var largeStraightStrategy: IStrategy = LargeStraightStrategy()
+    private var pokerStrategy: IStrategy = PokerStrategy()
 
     fun startGame(){
         for(i in 0..2){
@@ -60,13 +62,18 @@ class Yahtzee {
 
         val isYahtzee: Boolean = yahtzeeStrategy.checkStrategy(numbers)
         val isLargeStraight: Boolean = largeStraightStrategy.checkStrategy(numbers)
+        val isPoker: Boolean = pokerStrategy.checkStrategy(numbers)
 
         if(isYahtzee){
             totalScore += 50
             println("Yahtzee!")
-        } else if(isLargeStraight){
+        } else if(isLargeStraight) {
             totalScore += 40
             println("Large Straight!")
+        }
+        else if(isPoker){
+                totalScore += 25
+                println("Poker!")
         } else {
             totalScore += getRoundScore()
         }
